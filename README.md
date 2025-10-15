@@ -59,7 +59,7 @@ The system enables users to:
 ### Step 1: Clone the repository
 
 ```bash
-git clone https://github.com/Pavani89/capstone_project-sentiment-based-product-recommendation-system.git
+git clone https://github.com/rajeshmishra05/capstone_project-sentiment-based-product-recommendation-system.git
 ```
 
 ### Step 2: Install dependencies
@@ -128,51 +128,76 @@ The final recommendation engine merges sentiment filtering with collaborative fi
 
 Follow the instructions above to set up and run locally.
 
-### Digital Ocean Deployment
+### Heroku Deployment
 
-Here are 5 summarized steps to deploy the app on DigitalOcean:
-
----
-
-### **1. Set Up a Droplet**
-- Access your [DigitalOcean account](https://www.digitalocean.com/).
-- Launch a new droplet with Ubuntu 22.04 or similar.
-- Choose specs and region, then create the droplet.
-- SSH into the droplet:
-  ```bash
-  ssh root@your_droplet_ip
-  ```
+Follow these steps to deploy the application on Heroku:
 
 ---
 
-### **2. Install Required Software**
-- Run system updates and install essentials:
-  ```bash
-  sudo apt update && sudo apt upgrade -y
-  sudo apt install python3 python3-pip python3-venv nginx git -y
+### **1. Prerequisites**
+- Install [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli)
+- Ensure you have Git installed
+- Have a Heroku account
+
+---
+
+### **2. Prepare for Deployment**
+- Ensure you have these files in your project:
+  - `Procfile` with the content: `web: gunicorn app:app`
+  - `requirements.txt` with all dependencies
+  - `runtime.txt` specifying Python version
+- All pickle files should be in the correct directories:
   ```
-- Install Gunicorn:
-  ```bash
-  pip3 install gunicorn
+  pickle_files/
+  ├── model.pkl
+  ├── user_final_rating.pkl
+  ├── count_vector.pkl
+  ├── tfidf_transformer.pkl
+  └── RandomForest_classifier.pkl
   ```
 
 ---
 
-### **3. Upload and Configure Flask App**
-- Clone or transfer the app:
+### **3. Deploy to Heroku**
+1. Login to Heroku CLI:
+   ```bash
+   heroku login
+   ```
+
+2. Create a new Heroku app:
+   ```bash
+   heroku create your-app-name
+   ```
+
+3. Push your code:
+   ```bash
+   git push heroku main
+   ```
+
+4. Ensure at least one instance is running:
+   ```bash
+   heroku ps:scale web=1
+   ```
+
+5. Open the deployed app:
+   ```bash
+   heroku open
+   ```
+
+---
+
+### **4. Troubleshooting**
+- View logs if there are issues:
   ```bash
-  git clone https://github.com/Pavani89/capstone_project-sentiment-based-product-recommendation-system.git /var/www/flask-app
-  cd /var/www/flask-app
+  heroku logs --tail
   ```
-- Set up the environment and dependencies:
+- Check if all files are present:
   ```bash
-  python3 -m venv venv
-  source venv/bin/activate
-  pip install -r requirements.txt
+  heroku run ls
   ```
-- Test with Gunicorn:
+- Verify Python packages:
   ```bash
-  gunicorn --bind 0.0.0.0:8000 app:app
+  heroku run pip list
   ```
 
 ---
