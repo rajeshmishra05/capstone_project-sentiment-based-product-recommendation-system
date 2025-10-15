@@ -39,12 +39,13 @@ The system enables users to:
 
 ## Technologies Used
 
-- **Python 3.13+**: Main programming language.
-- **Flask**: Web application framework.
-- **Scikit-learn**: Used for model building and evaluation.
-- **Pandas** and **NumPy**: For data handling and analysis.
-- **Heroku**: Platform used for deployment.
-- **Pickle**: For model serialization.
+- **Python 3.11.9**: Main programming language
+- **Flask**: Web application framework
+- **Scikit-learn**: Used for model building and evaluation
+- **Pandas** and **NumPy**: For data handling and analysis
+- **NLTK** and **spaCy**: For text processing and analysis
+- **Heroku**: Platform used for deployment
+- **Pickle**: For model serialization
 
 ---
 
@@ -79,12 +80,13 @@ pip install -r requirements.txt
 
 ### Step 3: Load models and data
 
-Ensure the following pickle files are in the `pickle_file` directory:
-- `model.pkl`: Sentiment analysis model.
-- `user_final_rating.pkl`: Collaborative filtering rating model.
-- `count_vector.pkl`: CountVectorizer object.
-- `tfidf_transformer.pkl`: TF-IDF transformer.
-- `RandomForest_classifier.pkl`: Checkpoint file for randome forest model.
+Ensure the following pickle files are in the `pickle_files` directory:
+- `model.pkl`: Sentiment analysis model
+- `final_model.pkl`: Final trained model
+- `user_final_rating.pkl`: Collaborative filtering rating matrix
+- `count_vector.pkl`: CountVectorizer object
+- `tfidf_transformer.pkl`: TF-IDF transformer
+- `RandomForest_classifier.pkl`: Random Forest classifier model
 
 Also, ensure the `sample30.csv` dataset under the folder `data` is available for testing.
 
@@ -208,21 +210,26 @@ Follow these steps to deploy the application on Heroku:
 sentiment-based-recommendations/
 ├── app.py                    # Flask application
 ├── model.py                  # Core recommendation logic
-├── checkpoints               # Directory with intermediate model objects 
-│   ├── xgn_best_model.pkl
-├── pickle_file/              # Directory with saved model objects
-│   ├── model.pkl
-│   ├── final_model.pkl
-│   ├── user_final_rating.pkl
-│   ├── count_vector.pkl
-│   ├── tfidf_transformer.pkl
-│   ├── user_final_rating.pkl
-├── requirements.txt          # Required packages
-├── README.md                 # Project documentation
-├── data                      # Test dataset
+├── generate_matrix.py        # Script to generate recommendation matrix
+├── checkpoints/              # Directory with intermediate model objects 
+│   └── xgb_best_model.pkl
+├── pickle_files/            # Directory with saved model objects
+│   ├── model.pkl            # Sentiment analysis model
+│   ├── final_model.pkl      # Final trained model
+│   ├── user_final_rating.pkl # User recommendations matrix
+│   ├── count_vector.pkl     # Text vectorization model
+│   ├── tfidf_transformer.pkl # TF-IDF transformation model
+│   └── RandomForest_classifier.pkl # Random Forest model
+├── requirements.txt         # Required packages
+├── runtime.txt             # Python version specification
+├── Procfile               # Heroku deployment configuration
+├── README.md              # Project documentation
+├── Sentiment-based-product-recommendation-system.ipynb  # Jupyter notebook with model development
+├── data/                  # Test dataset
 │   ├── sample30.csv
-└── templates                 # HTML templates for the web app
-│   ├── index.html
+│   └── Data+Attribute+Description.csv
+└── templates/             # HTML templates for the web app
+    └── index.html
 ```
 
 ---
